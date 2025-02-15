@@ -1,8 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 import os
-from tasks import task_A1
-
+from agent import simple_agent, automator_agent, openai_agent
 ## API Setup
 
 app = Flask(__name__)
@@ -34,12 +33,15 @@ def run_task():
         # Here you would implement your task execution logic
         # For now, we'll just return a placeholder response
 
-        task_A1.run("aimiitjee01@gmail.com")
+        # simple_agent();
+        result = automator_agent(task);
+        # openai_agent();
+
 
         return jsonify({
             "status": "success",
             "task": task,
-            "message": "Task execution placeholder"
+            "result": result
         }), 200
     except ValueError as e:
         return jsonify({
