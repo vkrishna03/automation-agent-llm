@@ -2,6 +2,7 @@ from agno.agent import Agent
 from agno.models.groq import Groq
 from agno.models.openai.chat import OpenAIChat
 from agno.tools.shell import ShellTools
+from phi.tools.sql import SQLTools
 from tools import APIData
 import json
 import os
@@ -27,12 +28,14 @@ def openai_agent():
 def automator_agent(command: str, ):
 
     base_dir = os.path.join(os.getcwd(), "temp")
+    pwd = os.path.abspath(os.path.dirname(__file__))
+    db_url = f'sqlite:///{os.path.join(pwd, "database.db")}'
 
     agent = Agent(
         name="Automator Agent",
         model = Groq(id="llama-3.3-70b-versatile"),
         # model= Groq(id="mixtral-8x7b-32768"),
-        tools=[ShellTools(), APIData()],
+        tools=[ShellTools(), APIData(),SQLTools(db_url=db_url)],
         instructions=["""
         Anytime you are asked to download or generate data from a script 
         make sure you download it in current directory. Python scripts are to be stored in scripts folder. 
