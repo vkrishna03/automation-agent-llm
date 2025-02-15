@@ -1,5 +1,8 @@
 .env
 temp
+data
+scripts
+
 
 # Virtual Environment
 venv/
