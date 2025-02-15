@@ -2,7 +2,7 @@ from agno.agent import Agent
 from agno.models.groq import Groq
 from agno.models.openai.chat import OpenAIChat
 from agno.tools.shell import ShellTools
-from tools import LocalTools
+from tools import APIData
 import json
 import os
 
@@ -32,7 +32,7 @@ def automator_agent(command: str, ):
         name="Automator Agent",
         model = Groq(id="llama-3.3-70b-versatile"),
         # model= Groq(id="mixtral-8x7b-32768"),
-        tools=[ShellTools()],
+        tools=[ShellTools(), APIData()],
         instructions=["""
         Anytime you are asked to download or generate data from a script 
         make sure you download it in current directory. Python scripts are to be stored in scripts folder. 
